@@ -31,6 +31,10 @@ class Process extends Fluent implements EcsField
      */
     public function __construct()
     {
+        if (is_null(static::$startedAt)) {
+            static::init();
+        }
+
         parent::__construct(array_filter([
             'args' => static::$args,
             'args_count' => static::$argsCount,
@@ -48,13 +52,7 @@ class Process extends Fluent implements EcsField
     public static function onCommandStarting()
     {
         return function (CommandStarting $event) {
-            $php = new PhpExecutableFinder();
-
-            static::$args = collect($php->find(true))->concat($_SERVER['argv'])->toArray();
-            static::$argsCount = $_SERVER['argc'];
-            static::$pwd = getcwd();
-
-            static::$startedAt = Carbon::now();
+            self::init();
 
             if (Config::get('ecs-logging.formatter.commands.log_start', false)) {
                 Log::info("Command '{$event->command}' starting");
@@ -74,6 +72,17 @@ class Process extends Fluent implements EcsField
                 ]));
             }
         };
+    }
+
+    protected static function init(): void
+    {
+        $php = new PhpExecutableFinder();
+
+        static::$args = collect($php->find(true))->concat($_SERVER['argv'])->toArray();
+        static::$argsCount = $_SERVER['argc'];
+        static::$pwd = getcwd();
+
+        static::$startedAt = Carbon::now();
     }
 
     /**
