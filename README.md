@@ -4,7 +4,7 @@
 [![Build Status](https://img.shields.io/travis/aviationcode/laravel-ecs-logging/master.svg?style=flat-square)](https://travis-ci.org/aviationcode/laravel-ecs-logging)
 [![Total Downloads](https://img.shields.io/packagist/dt/aviationcode/laravel-ecs-logging.svg?style=flat-square)](https://packagist.org/packages/aviationcode/laravel-ecs-logging)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+This package adds ECS (Elastic Common Scheme) format to your laravel application allowing to log your standard logs to elastic.
 
 ## Installation
 
@@ -45,15 +45,31 @@ return [
 
 If you want to use this driver as the only logging method define `LOG_CHANNEL=ecs` in your `.env` or add the `ecs` channel into your stack driver.
 
-All `Log::xxx()` calls are logged into json file. This file can be picked up by filebeat which sends it to your logstash or elasticsearch instance.
+All `Log::xxx()` calls get logged into json file. This file can be picked up by filebeat which sends it to your logstash or elasticsearch instance.
+
+### Configure filebeat
+
+Add the following to your `/etc/filebeat/filebeat.yml` file
+
+```yaml
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /path-to-your-laravel-app/storage/logs/ecs/*.json
+    json:
+      message_key: message
+      keys_under_root: true
+      overwrite_keys: true
+```
 
 ## Usage
 
 
 ### Event
 
-[https://www.elastic.co/guide/en/ecs/current/ecs-event.html](Events) defines something that happened, this could be a single point in time or lasting a certain period.
-In order to log an event you can add this log context
+[Event](https://www.elastic.co/guide/en/ecs/current/ecs-event.html) defines something that happened, this could be a single point in time or lasting a certain period.
+In order to log an event you can add this log context.
 
 ```php
 Log::info('Password changed for John Doe<john.doe@example.com>', [
