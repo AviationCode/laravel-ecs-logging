@@ -22,9 +22,6 @@ class Tracing extends Fluent implements EcsField
         ]);
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return 'tracing';

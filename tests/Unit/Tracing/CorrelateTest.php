@@ -26,9 +26,7 @@ class CorrelateTest extends TestCase
     /** @test **/
     public function it_can_swap_generator_functions()
     {
-        Correlate::setGenerator(function () {
-            return 'foo-bar';
-        });
+        Correlate::setGenerator(fn(): string => 'foo-bar');
 
         $this->assertSame('foo-bar', Correlate::id());
     }

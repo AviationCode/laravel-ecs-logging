@@ -37,9 +37,6 @@ class User extends Fluent implements EcsField
         parent::__construct($attributes);
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return 'user';

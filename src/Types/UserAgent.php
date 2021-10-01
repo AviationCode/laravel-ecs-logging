@@ -47,9 +47,6 @@ class UserAgent extends Fluent implements EcsField
         parent::__construct(array_filter(Arr::only($attributes, $this->fillable)));
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return 'user_agent';

@@ -32,9 +32,6 @@ class Http extends Fluent implements EcsField
         ], $attributes));
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return 'http';

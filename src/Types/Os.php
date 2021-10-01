@@ -32,9 +32,6 @@ class Os extends Fluent implements EcsField
         parent::__construct(Arr::only($attributes, $this->fillable));
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return 'os';

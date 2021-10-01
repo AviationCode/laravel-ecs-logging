@@ -39,9 +39,6 @@ class Service extends Fluent implements EcsField
         parent::__construct(array_filter($attributes));
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return 'service';

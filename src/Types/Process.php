@@ -85,9 +85,6 @@ class Process extends Fluent implements EcsField
         static::$startedAt = Carbon::now();
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return 'process';
