@@ -12,12 +12,12 @@ class EcsFormatter extends NormalizerFormatter
     /**
      * @var bool[]
      */
-    protected $features = [];
+    protected array $features = [];
 
     /**
      * @var string[]
      */
-    protected $types = [];
+    protected array $types = [];
 
     /**
      * EcsFormatter constructor.

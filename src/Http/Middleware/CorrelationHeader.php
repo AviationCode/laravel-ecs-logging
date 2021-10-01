@@ -18,9 +18,7 @@ class CorrelationHeader
     public function handle($request, Closure $next)
     {
         if ($correlationId = $request->header(Correlate::headerName())) {
-            Correlate::setGenerator(function () use ($correlationId) {
-                return $correlationId;
-            });
+            Correlate::setGenerator(fn () => $correlationId);
         }
 
         /** @var Response $response */

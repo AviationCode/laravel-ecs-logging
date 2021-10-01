@@ -31,9 +31,6 @@ class Url extends Fluent implements EcsField
         parent::__construct($attributes);
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return 'url';

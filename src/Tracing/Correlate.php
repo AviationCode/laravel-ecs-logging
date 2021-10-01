@@ -11,14 +11,11 @@ class Correlate
 {
     private const DEFAULT_HEADER = 'X-Correlation-Id';
 
-    /** @var string */
-    private static $id;
+    private static ?string $id;
 
-    /** @var Closure|null */
-    private static $generator;
+    private static ?Closure $generator;
 
-    /** @var string */
-    private static $headerName;
+    private static ?string $headerName;
 
     /**
      * Returns the unique correlation id.
@@ -39,23 +36,17 @@ class Correlate
      *
      * @param Closure $generator
      */
-    public static function setGenerator(Closure $generator)
+    public static function setGenerator(Closure $generator): void
     {
         static::$generator = $generator;
     }
 
-    /**
-     * @return string
-     */
     public static function headerName(): string
     {
         return static::$headerName;
     }
 
-    /**
-     * @param string $headerName
-     */
-    public static function setHeaderName(string $headerName)
+    public static function setHeaderName(string $headerName): void
     {
         static::$headerName = $headerName;
     }

@@ -46,9 +46,7 @@ class EcsLogger implements LoggerInterface
 
         $handler
             ->setFormatter(new EcsFormatter())
-            ->pushProcessor(function ($record) {
-                return $this->enrichRecord($record);
-            });
+            ->pushProcessor(fn ($record) => $this->enrichRecord($record));
 
         $this->monolog = new Logger($this->parseChannel($config), [$handler]);
     }

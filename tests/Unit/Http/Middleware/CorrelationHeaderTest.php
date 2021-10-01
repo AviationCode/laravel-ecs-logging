@@ -19,9 +19,7 @@ class CorrelationHeaderTest extends TestCase
     /** @test **/
     public function it_generates_and_returns_correlation_id()
     {
-        Route::middleware(CorrelationHeader::class)->any('/_test/request', function() {
-            return 'OK';
-        });
+        Route::middleware(CorrelationHeader::class)->any('/_test/request', fn () => 'OK');
 
         Correlate::setGenerator(function () {
             return 'FooBar';
@@ -35,9 +33,7 @@ class CorrelationHeaderTest extends TestCase
     /** @test **/
     public function it_keeps_correlation_id_through_request_cycle()
     {
-        Route::middleware(CorrelationHeader::class)->any('/_test/request', function() {
-            return 'OK';
-        });
+        Route::middleware(CorrelationHeader::class)->any('/_test/request', fn () => 'OK');
 
         $response = $this->withHeader('X-Correlation-Id', 'FooBar')->get('/_test/request');
 

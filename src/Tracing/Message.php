@@ -14,11 +14,9 @@ use Ramsey\Uuid\Uuid;
  */
 class Message
 {
-    /** @var string */
-    private static $id;
+    private static ?string $id;
 
-    /** @var Closure|null */
-    private static $generator;
+    private static ?Closure $generator;
 
     /**
      * Returns the unique correlation id.
@@ -39,7 +37,7 @@ class Message
      *
      * @param Closure $generator
      */
-    public static function setGenerator(Closure $generator)
+    public static function setGenerator(Closure $generator): void
     {
         static::$generator = $generator;
     }

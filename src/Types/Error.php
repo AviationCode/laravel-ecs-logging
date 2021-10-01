@@ -32,9 +32,6 @@ class Error extends Fluent implements EcsField
         ]);
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return 'error';

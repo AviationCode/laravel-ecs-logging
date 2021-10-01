@@ -22,9 +22,7 @@ class EcsLoggingServiceProvider extends ServiceProvider
     {
         /** @var LogManager $log */
         $log = $this->app['log'];
-        $log->extend('ecs', function (Application $app, array $config) {
-            return new EcsLogger($config);
-        });
+        $log->extend('ecs', fn (Application $app, array $config) => new EcsLogger($config));
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
